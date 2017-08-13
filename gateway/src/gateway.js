@@ -3,7 +3,8 @@ import fetch  from 'isomorphic-fetch';
 
 
 export default class Gateway {
-  constructor({host = '', key = '', secret = '', jsapi = false, secure = false, signSecret = false, signJSON = false, signParam = false} = {}) {
+  constructor({host = '', key = '', secret = '', jsapi = false, secure = false,
+               signSecret = false, signJSON = false, signParam = false} = {}) {
     this.host       = host;
     this.key        = key;
     this.jsapi      = jsapi;
@@ -28,7 +29,8 @@ export default class Gateway {
     return secret;
   }
 
-  async request({method='GET', pathname='', query = null, form = null, json = null, raw = null, type = null}) {
+  async request({method='GET', pathname='', query = null, form = null,
+                 json = null, raw = null, type = null}) {
     let url = this.host + pathname;
     if (query) {
       url += '?' + qs.stringify(query);
@@ -57,9 +59,9 @@ export default class Gateway {
       }
 
       if (json) {
-        headers['X-REQUEST-SIGNATURE'] = signJSON(secret, signData);
+        headers['X-REQUEST-SIGNATURE'] = this.signJSON(secret, signData);
       } else {
-        headers['X-REQUEST-SIGNATURE'] = signParam(secret, signData);
+        headers['X-REQUEST-SIGNATURE'] = this.signParam(secret, signData);
       }
       headers['X-REQUEST-TIME'] = signData.timestamp;
     }
