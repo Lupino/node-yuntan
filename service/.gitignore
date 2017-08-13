@@ -1,0 +1,4 @@
+# .gitignore - the files to not push via git
+lib
+package-lock.json
+node_modules
