@@ -47,7 +47,7 @@ export default class ArticleService extends Gateway {
 
   clearExtra(art_id) {
     const pathname = `/api/articles/${art_id}/extra/clear`;
-    return this.requestJSON({pathname, method: 'DELETE'}, 'result');
+    return this.requestJSON({pathname, method: 'POST'}, 'result');
   }
 
   remove(art_id) {
