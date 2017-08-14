@@ -2,7 +2,7 @@ import Gateway from 'yuntan-gateway';
 import uuid from 'uuid/v4';
 
 
-export class ArticleService extends Gateway {
+export default class ArticleService extends Gateway {
   upload(fileName, raw) {
     const pathname = '/api/upload/';
     return this.requestJSON({pathname, method: 'PUT', raw, query: {fileName}});

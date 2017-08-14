@@ -1,6 +1,6 @@
 import Gateway from 'yuntan-gateway';
 
-export class UserService extends Gateway {
+export default class UserService extends Gateway {
   constructor(options) {
     super({...options, secure: true})
   }

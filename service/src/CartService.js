@@ -2,7 +2,7 @@ import Gateway from 'yuntan-gateway';
 import moment from 'moment';
 
 
-export class CartService extends Gateway {
+export default class CartService extends Gateway {
   constructor(options) {
     super({...options, secure: true})
   }
