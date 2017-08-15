@@ -1,3 +1,6 @@
+extends:
+  - google
+  - 'eslint:recommended'
 parser: 'babel-eslint'
 parserOptions:
   sourceType: module
@@ -16,3 +19,5 @@ rules:
   semi:
     - error
     - always
+  require-jsdoc:
+    - warn

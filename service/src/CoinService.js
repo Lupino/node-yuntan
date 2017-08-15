@@ -1,31 +1,38 @@
 import Gateway from 'yuntan-gateway';
 
+/**
+ * CoinService
+ * @class CoinService
+ * @param {json} options Service config
+ */
 export default class CoinService extends Gateway {
+  /* eslint-disable require-jsdoc */
   constructor(options) {
     super({...options, secure: true});
   }
+  /* eslint-enable require-jsdoc */
   getScore(name) {
     const pathname = `/api/coins/${name}/score/`;
-    return this.requestJSON({ pathname }, 'score');
+    return this.requestJSON({pathname}, 'score');
   }
   getInfo(name) {
     const pathname = `/api/coins/${name}/info/`;
-    return this.requestJSON({ pathname });
+    return this.requestJSON({pathname});
   }
-  putInfo({ name, ...json }) {
+  putInfo({name, ...json}) {
     const pathname = `/api/coins/${name}/info/`;
-    return this.requestJSON({ pathname, method: 'PUT', json });
+    return this.requestJSON({pathname, method: 'PUT', json});
   }
-  getList({ name, ...query }) {
+  getList({name, ...query}) {
     const pathname = `/api/coins/${name}/`;
-    return this.requestJSON({ pathname, query });
+    return this.requestJSON({pathname, query});
   }
   save({name, ...form}) {
     const pathname = `/api/coins/${name}/`;
-    return this.requestJSON({ pathname, method: 'POST', form }, 'score');
+    return this.requestJSON({pathname, method: 'POST', form}, 'score');
   }
   graphql(query) {
     const pathname = '/api/graphql/';
-    return this.requestJSON({ pathname, method: 'POST', form: { query } });
+    return this.requestJSON({pathname, method: 'POST', form: {query}});
   }
 }

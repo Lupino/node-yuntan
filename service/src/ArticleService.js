@@ -2,112 +2,125 @@ import Gateway from 'yuntan-gateway';
 import uuid from 'uuid/v4';
 
 
+/**
+ * ArticleService
+ * @class ArticleService
+ */
 export default class ArticleService extends Gateway {
   upload(fileName, raw) {
     const pathname = '/api/upload/';
     return this.requestJSON({pathname, method: 'PUT', raw, query: {fileName}});
   }
 
+  /* eslint-disable camelcase */
   create({title, summary = '', content = '', from_url = uuid(),
     created_at = Math.floor( new Date() / 1000 )}) {
     const pathname = '/api/articles/';
-    return this.requestJSON({pathname, method:'POST',
+    return this.requestJSON({pathname, method: 'POST',
       form: {title, summary, content, from_url,
         created_at}}, 'article');
   }
+  /* eslint-enable camelcase */
 
-  update(art_id, {title = '', summary = '', content = ''}){
-    const pathname = `/api/articles/${art_id}/`;
+  update(artId, {title = '', summary = '', content = ''}) {
+    const pathname = `/api/articles/${artId}/`;
     return this.requestJSON({pathname, method: 'POST',
       form: {title, summary, content}}, 'article');
   }
 
-  updateCover(art_id, file_id) {
-    const pathname = `/api/articles/${art_id}/cover`;
+  /* eslint-disable camelcase */
+  updateCover(artId, file_id) {
+    const pathname = `/api/articles/${artId}/cover`;
     return this.requestJSON({pathname, method: 'POST', form: {file_id}},
       'result');
   }
+  /* eslint-enable camelcase */
 
-  removeCover(art_id) {
-    const pathname = `/api/articles/${art_id}/cover`;
-    return this.requestJSON({ pathname, method: 'DELETE'}, 'result');
+  removeCover(artId) {
+    const pathname = `/api/articles/${artId}/cover`;
+    return this.requestJSON({pathname, method: 'DELETE'}, 'result');
   }
 
-  updateExtra(art_id, extra) {
-    const pathname = `/api/articles/${art_id}/extra`;
+  updateExtra(artId, extra) {
+    const pathname = `/api/articles/${artId}/extra`;
     return this.requestJSON({pathname, method: 'POST', form: {extra}},
       'result');
   }
 
-  removeExtra(art_id, extra) {
-    const pathname = `/api/articles/${art_id}/extra`;
+  removeExtra(artId, extra) {
+    const pathname = `/api/articles/${artId}/extra`;
     return this.requestJSON({pathname, method: 'DELETE', form: {extra}},
       'result');
   }
 
-  clearExtra(art_id) {
-    const pathname = `/api/articles/${art_id}/extra/clear`;
+  clearExtra(artId) {
+    const pathname = `/api/articles/${artId}/extra/clear`;
     return this.requestJSON({pathname, method: 'POST'}, 'result');
   }
 
-  remove(art_id) {
-    const pathname = `/api/articles/${art_id}/`;
+  remove(artId) {
+    const pathname = `/api/articles/${artId}/`;
     return this.requestJSON({pathname, method: 'DELETE'}, 'result');
   }
 
-  get(art_id) {
-    const pathname = `/api/articles/${art_id}/`;
+  get(artId) {
+    const pathname = `/api/articles/${artId}/`;
     return this.requestJSON({pathname}, 'article');
   }
 
+  /* eslint-disable camelcase */
   exists(from_url) {
     const pathname = '/api/check/';
     return this.requestJSON({pathname, from: {from_url}}, 'id');
   }
+  /* eslint-enable camelcase */
 
-  getList({ from = 0, size = 10 } = {}) {
+  getList({from = 0, size = 10} = {}) {
     const pathname = '/api/articles/';
     return this.requestJSON({pathname, query: {from, size}});
   }
 
-  createTag(tag){
+  createTag(tag) {
     const pathname = '/api/tags/';
     return this.requestJSON({pathname, method: 'POST', form: {tag}}, 'tag');
   }
 
-  getTag(tag_id){
-    const pathname = `/api/tags/${tag_id}/`;
+  getTag(tagId) {
+    const pathname = `/api/tags/${tagId}/`;
     return this.requestJSON({pathname}, 'tag');
   }
 
-  addArticleTag(art_id, tag){
-    const pathname = `/api/articles/${art_id}/tags/`;
-    return this.requestJSON({pathname, method: 'POST', form:{tag}}, 'result');
+  addArticleTag(artId, tag) {
+    const pathname = `/api/articles/${artId}/tags/`;
+    return this.requestJSON({pathname, method: 'POST', form: {tag}}, 'result');
   }
 
-  removeArticleTag(art_id, tag){
-    const pathname = `/api/articles/${art_id}/tags/`;
-    return this.requestJSON({pathname, method: 'DELETE', form:{tag}}, 'result');
+  removeArticleTag(artId, tag) {
+    const pathname = `/api/articles/${artId}/tags/`;
+    return this.requestJSON({pathname, method: 'DELETE', form: {tag}},
+      'result');
   }
 
-  updateTag(tag_id, tag) {
-    const pathname = `/api/tags/${tag_id}/`;
-    return this.requestJSON({pathname, method: 'POST', form:{tag}}, 'result');
+  updateTag(tagId, tag) {
+    const pathname = `/api/tags/${tagId}/`;
+    return this.requestJSON({pathname, method: 'POST', form: {tag}}, 'result');
   }
 
-  getTagByName(tag){
+  getTagByName(tag) {
     const pathname = '/api/tags/';
     return this.requestJSON({pathname, query: {tag}}, 'tag');
   }
 
-  createTimeline(timeline, art_id){
+  /* eslint-disable camelcase */
+  createTimeline(timeline, art_id) {
     const pathname = `/api/timeline/${timeline}/`;
     return this.requestJSON({pathname, method: 'POST', form: {art_id}},
       'result');
   }
+  /* eslint-enable camelcase */
 
-  removeTimeline(timeline, art_id){
-    const pathname = `/api/timeline/${timeline}/${art_id}/`;
+  removeTimeline(timeline, artId) {
+    const pathname = `/api/timeline/${timeline}/${artId}/`;
     return this.requestJSON({pathname, method: 'DELETE'}, 'result');
   }
 
@@ -116,13 +129,13 @@ export default class ArticleService extends Gateway {
     return this.requestJSON({pathname, query: {from, size}});
   }
 
-  saveTimelineMeta(timeline, {title = '', summary = ''}){
+  saveTimelineMeta(timeline, {title = '', summary = ''}) {
     const pathname = `/api/timeline/${timeline}/meta`;
     return this.requestJSON({pathname, method: 'POST',
       form: {title, summary}}, 'result');
   }
 
-  getTimelineMeta(timeline){
+  getTimelineMeta(timeline) {
     const pathname = `/api/timeline/${timeline}/meta`;
     return this.requestJSON({pathname});
   }
