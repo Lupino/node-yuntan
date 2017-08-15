@@ -2,6 +2,7 @@ import qs     from 'querystring';
 import fetch  from 'isomorphic-fetch';
 
 
+// function signSecret(method, pathname);
 export default class Gateway {
   constructor({host = '', key = '', secret = '', jsapi = false, secure = false,
                signSecret = false, signJSON = false, signParam = false} = {}) {
@@ -16,16 +17,16 @@ export default class Gateway {
     this.signParam  = signParam;
   }
 
-  async getSecret(path) {
-    let secret = this.secrets[path];
+  async getSecret(method, path) {
+    let secret = this.secrets[method + path];
     const expired_at = Math.floor(new Date() / 1000) - 250;
     if (secret && secret.timestamp > expired_at) {
       return secret;
     }
 
-    secret = await this.signSecret(path);
+    secret = await this.signSecret(method, path);
     secret.timestamp = Number(secret.timestamp);
-    this.secrets[path] = secret;
+    this.secrets[method + path] = secret;
     return secret;
   }
 
@@ -38,6 +39,8 @@ export default class Gateway {
 
     let headers = {};
 
+    method = method.toUpperCase();
+
     if (method !== 'GET' || this.secure) {
       let signData = { sign_path: pathname, key: this.key };
       if (raw) {
@@ -49,7 +52,7 @@ export default class Gateway {
       let secret = this.secret;
 
       if (this.jsapi) {
-        const { nonce, secret: secret_, timestamp } = await this.getSecret(pathname);
+        const { nonce, secret: secret_, timestamp } = await this.getSecret(method, pathname);
         headers['X-REQUEST-TYPE'] = "JSAPI";
         headers['X-REQUEST-NONCE'] = nonce;
         signData.timestamp = timestamp;
