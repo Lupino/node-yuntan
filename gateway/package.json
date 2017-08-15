@@ -1,6 +1,6 @@
 {
   "name": "yuntan-gateway",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node and brower client for yuntan service gateway.",
   "main": "lib/index.js",
   "browser": "lib/index-browserify.js",
@@ -29,8 +29,8 @@
   },
   "dependencies": {
     "babel-runtime": "^6.25.0",
-    "fast-sha256": "^1.0.0",
     "isomorphic-fetch": "^2.2.1",
+    "js-sha256": "^0.6.0",
     "lodash.keys": "^4.2.0",
     "lodash.sortby": "^4.7.0"
   }

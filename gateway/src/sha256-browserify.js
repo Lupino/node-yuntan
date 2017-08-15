@@ -1,8 +1,6 @@
-import {HMAC} from "fast-sha256";
 import { joinJSON } from './utils';
+import sha256 from 'js-sha256';
 
 export function signJSON(secret, v) {
-  const h = new HMAC(secret);
-  return h.update(joinJSON(v)).digest().toUpperCase()
+  return sha256.hmac(secret, joinJSON(v)).toUpperCase();
 }
-
