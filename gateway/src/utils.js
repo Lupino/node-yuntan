@@ -1,6 +1,11 @@
 import sortBy from 'lodash.sortby';
-import keys   from 'lodash.keys';
+import keys from 'lodash.keys';
 
+/**
+ * Join json to a string
+ * @param {json} v
+ * @return {String}
+ */
 export function joinJSON(v) {
   if (Array.isArray(v)) {
     return v.map((v1) => joinJSON(v1)).join('');
