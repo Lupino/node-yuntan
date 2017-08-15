@@ -2,7 +2,7 @@ import Gateway from 'yuntan-gateway';
 
 export default class UserService extends Gateway {
   constructor(options) {
-    super({...options, secure: true})
+    super({...options, secure: true});
   }
   getList({ from = 0, size = 10 } = {}) {
     const pathname = '/api/users/';

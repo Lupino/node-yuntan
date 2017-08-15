@@ -4,13 +4,13 @@ import moment from 'moment';
 
 export default class CartService extends Gateway {
   constructor(options) {
-    super({...options, secure: true})
+    super({...options, secure: true});
   }
 
   addProduct(username, {product_id, num=1}){
     const pathname = `/api/cart/${username}/`;
     return this.requestJSON({pathname, method: 'POST', form: {product_id, num}},
-                            'result');
+      'result');
   }
 
   getCart(username){
@@ -21,15 +21,15 @@ export default class CartService extends Gateway {
   removeProduct(username, product_id){
     const pathname = `/api/cart/${username}/`;
     return this.requestJSON({pathname, method: 'DELETE', form: {product_id}},
-                             'result');
+      'result');
   }
 
   createOrder({username, amount, body={},
-               order_sn=`D${moment().format('YYYYMMDDHHmmss')}`,
-               status="created"}) {
+    order_sn=`D${moment().format('YYYYMMDDHHmmss')}`,
+    status='created'}) {
     const pathname = '/api/orders/';
     return this.requestJSON({pathname, method: 'POST',
-                             form: {username, amount, body, order_sn, status}});
+      form: {username, amount, body, order_sn, status}});
   }
 
   updateOrderStatus(orderIdOrSN, status) {
