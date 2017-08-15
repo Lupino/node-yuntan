@@ -4,8 +4,8 @@ import fetch  from 'isomorphic-fetch';
 
 // function signSecret(method, pathname);
 export default class Gateway {
-  constructor({host = '', key = '', secret = '', jsapi = false, secure = false,
-               signSecret = false, signJSON = false, signParam = false} = {}) {
+  constructor({host, key, secret = '', secure = false, signSecret = false} = {},
+              {jsapi = false, signJSON, signParam} = {}) {
     this.host       = host;
     this.key        = key;
     this.jsapi      = jsapi;
