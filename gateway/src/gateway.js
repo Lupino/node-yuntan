@@ -5,7 +5,7 @@ import fetch  from 'isomorphic-fetch';
 // function signSecret(method, pathname);
 export default class Gateway {
   constructor({host, key, secret = '', secure = false, signSecret = false} = {},
-              {jsapi = false, signJSON, signParam} = {}) {
+    {jsapi = false, signJSON, signParam} = {}) {
     this.host       = host;
     this.key        = key;
     this.jsapi      = jsapi;
@@ -31,7 +31,7 @@ export default class Gateway {
   }
 
   async request({method='GET', pathname='', query = null, form = null,
-                 json = null, raw = null, type = null}) {
+    json = null, raw = null, type = null}) {
     let url = this.host + pathname;
     if (query) {
       url += '?' + qs.stringify(query);
@@ -46,14 +46,14 @@ export default class Gateway {
       if (raw) {
         signData = { raw, ...signData };
       } else {
-        signData = { ...query, ...form, ...json, ...signData }
+        signData = { ...query, ...form, ...json, ...signData };
       }
 
       let secret = this.secret;
 
       if (this.jsapi) {
         const { nonce, secret: secret_, timestamp } = await this.getSecret(method, pathname);
-        headers['X-REQUEST-TYPE'] = "JSAPI";
+        headers['X-REQUEST-TYPE'] = 'JSAPI';
         headers['X-REQUEST-NONCE'] = nonce;
         signData.timestamp = timestamp;
         secret = secret_;
@@ -87,7 +87,7 @@ export default class Gateway {
   async requestJSON(options, spec=null) {
     const rsp = await this.request(options).then((rsp) => rsp.json());
     if (rsp.err) {
-      throw rsp.err
+      throw rsp.err;
     }
     if (spec) {
       return rsp[spec];

@@ -7,8 +7,8 @@ import { joinJSON } from './utils';
 export function signJSON(secret, v) {
   const hmac = crypto.createHmac('sha256', secret);
   hmac.update(joinJSON(v));
-  return hmac.digest('hex').toUpperCase()
-};
+  return hmac.digest('hex').toUpperCase();
+}
 
 export function signParam(secret, v) {
   const hmac = crypto.createHmac('sha256', secret);
@@ -21,4 +21,4 @@ export function signParam(secret, v) {
     hmac.update('' + v[k]);
   }
   return hmac.digest('hex').toUpperCase();
-};
+}
