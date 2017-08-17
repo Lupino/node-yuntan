@@ -44,7 +44,7 @@ export default class Gateway {
    * Get sign secret from third part server
    * @private
    * @async
-   * @function
+   * @function Gateway::getSecret
    * @param {String} method HTTP request method
    * @param {String} path pathname
    * @return {json}
@@ -64,7 +64,7 @@ export default class Gateway {
 
   /**
    * Request data from service
-   * @function
+   * @function Gateway::request
    * @async
    * @param {Object} options Request options
    * @param {String} [options.method=GET] HTTP method allows GET, PUT, POST, DELETE
@@ -135,7 +135,7 @@ export default class Gateway {
 
   /**
    * Request data from service with response JSON
-   * @function
+   * @function Gateway::requestJSON
    * @async
    * @param {Object} options Request options
    * @param {String} [options.method=GET] HTTP method allows GET, PUT, POST, DELETE
