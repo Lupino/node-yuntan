@@ -8,7 +8,7 @@ import {joinJSON} from './utils';
  * create signature with a secret and json
  * @function
  * @param {String} secret
- * @param {json} v
+ * @param {Object} v
  * @return {String} hmac sha256 result
  */
 export function signJSON(secret, v) {
@@ -21,7 +21,7 @@ export function signJSON(secret, v) {
  * create signature with a secret and http params
  * @function
  * @param {String} secret
- * @param {Params} v
+ * @param {Object} v
  * @return {String} hmac sha256 result
  */
 export function signParam(secret, v) {

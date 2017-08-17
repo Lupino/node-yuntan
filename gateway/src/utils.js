@@ -3,7 +3,7 @@ import keys from 'lodash.keys';
 
 /**
  * Join json to a string
- * @param {json} v
+ * @param {Object} v
  * @return {String}
  */
 export function joinJSON(v) {

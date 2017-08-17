@@ -1,11 +1,28 @@
 import qs from 'querystring';
 import fetch from 'isomorphic-fetch';
 
+/**
+ * Dynamic sign secret for third part server usage
+ *
+ * @function signSecret
+ * @param {String} method
+ * @param {String} pathname
+ *
+ */
+
 /** Abstract class for yuntan service.
  *  Every service should extend this class.
  *  @class Gateway
- *  @param {json} config Service config
- *  @param {json} options Signature method config
+ *  @param {Object} config Service config
+ *  @param {String} [config.host=https://gw.huabot.com] Service host
+ *  @param {String} config.key Service key
+ *  @param {String} [config.secret] Service secret
+ *  @param {signSecret} [config.signSecret] dynamic secret sign function
+ *  @param {Boolean} [config.secure=false] Is a secure service
+ *  @param {Object} options Signature method config
+ *  @param {Boolean} [options.jsapi=false] Is request with jsapi
+ *  @param {signJSON} options.signJSON
+ *  @param {signParam} options.signParam
  */
 export default class Gateway {
   /* eslint-disable require-jsdoc */
@@ -49,7 +66,14 @@ export default class Gateway {
    * Request data from service
    * @function
    * @async
-   * @param {json} options Request options
+   * @param {Object} options Request options
+   * @param {String} [options.method=GET] HTTP method allows GET, PUT, POST, DELETE
+   * @param {String} [options.pathname=/] HTTP pathname
+   * @param {Object} [options.query] HTTP query
+   * @param {Object} [options.form] Form data
+   * @param {Object} [options.json] Json data
+   * @param {Binary} [options.raw] Raw binary data
+   * @param {String} [options.type] Type of raw binary data
    * @return {Response}
    */
   async request({method='GET', pathname='', query = null, form = null,
@@ -113,9 +137,16 @@ export default class Gateway {
    * Request data from service with response JSON
    * @function
    * @async
-   * @param {json} options Request options
+   * @param {Object} options Request options
+   * @param {String} [options.method=GET] HTTP method allows GET, PUT, POST, DELETE
+   * @param {String} [options.pathname=/] HTTP pathname
+   * @param {Object} [options.query] HTTP query
+   * @param {Object} [options.form] Form data
+   * @param {Object} [options.json] Json data
+   * @param {Binary} [options.raw] Raw binary data
+   * @param {String} [options.type] Type of raw binary data
    * @param {String} spec Special key of result to extract
-   * @return {json}
+   * @return {Object}
    */
   async requestJSON(options, spec=null) {
     const rsp = await this.request(options).then((rsp) => rsp.json());
