@@ -3,12 +3,17 @@ import Gateway from 'yuntan-gateway';
 /**
  * FileService
  * @class FileService
+ * @param {Object} config Service config
+ * @param {String} [config.host=https://gw.huabot.com] Service host
+ * @param {String} config.key Service key
+ * @param {String} [config.secret] Service secret
+ * @param {signSecret} [config.signSecret] dynamic secret sign function
  */
 export default class FileService extends Gateway {
   /**
    * Put file
    * @async
-   * @function
+   * @function FileService::put
    * @param {String} fileName
    * @param {Buffer} raw
    * @return {Response}
@@ -21,7 +26,7 @@ export default class FileService extends Gateway {
   /**
    * Get file
    * @async
-   * @function
+   * @function FileService::get
    * @param {String} fileName
    * @return {Response}
    */
@@ -33,7 +38,7 @@ export default class FileService extends Gateway {
   /**
    * Remove file
    * @async
-   * @function
+   * @function FileService::remove
    * @param {String} fileName
    * @return {Response}
    */
