@@ -1,14 +1,23 @@
 import Gateway from 'yuntan-gateway';
 
 /**
+ * Coin object
+ * @typedef {Object} Coin
+ * @property {String} name coin name
+ * @property {Number} score coin score
+ * @property {Number} pre_score pre coin score
+ * @property {String} desc coin description
+ * @property {String} type One of Incr, Decr, incr, decr
+ */
+
+/**
  * CoinService
  * @class CoinService
- *  @param {Object} config Service config
- *  @param {String} [config.host=https://gw.huabot.com] Service host
- *  @param {String} config.key Service key
- *  @param {String} [config.secret] Service secret
- *  @param {signSecret} [config.signSecret] dynamic secret sign function
- *  @param {Boolean} [config.secure=false] Is a secure service
+ * @param {Object} config Service config
+ * @param {String} [config.host=https://gw.huabot.com] Service host
+ * @param {String} config.key Service key
+ * @param {String} [config.secret] Service secret
+ * @param {signSecret} [config.signSecret] dynamic secret sign function
  */
 export default class CoinService extends Gateway {
   /* eslint-disable require-jsdoc */
@@ -19,7 +28,7 @@ export default class CoinService extends Gateway {
 
   /**
    * Get coin score
-   * @function
+   * @function CoinService::getScore
    * @async
    * @param {String} name name
    * @return {Number}
@@ -31,10 +40,12 @@ export default class CoinService extends Gateway {
 
   /**
    * Get coin info
-   * @function
+   * @function CoinService::getInfo
    * @async
    * @param {String} name name
-   * @return {Object}
+   * @return {Number} score
+   * @return {String} name
+   * @return {Object} info
    */
   getInfo(name) {
     const pathname = `/api/coins/${name}/info/`;
@@ -43,7 +54,7 @@ export default class CoinService extends Gateway {
 
   /**
    * Put coin info
-   * @function
+   * @function CoinService::putInfo
    * @async
    * @param {String} name name
    * @param {Object} info coin info
@@ -55,7 +66,7 @@ export default class CoinService extends Gateway {
 
   /**
    * Get coin list
-   * @function
+   * @function CoinService::getList
    * @async
    * @param {String} name name
    * @param {Object} [query] query string
@@ -73,9 +84,9 @@ export default class CoinService extends Gateway {
 
   /**
    * Save coin
-   * @function
+   * @function CoinService::save
    * @async
-   * @param {Object} coin
+   * @param {Coin} coin
    * @param {String} coin.name coin name
    * @param {Number} coin.score coin score
    * @param {String} [coin.desc] coin description
@@ -89,9 +100,10 @@ export default class CoinService extends Gateway {
 
   /**
    * GraphQL api
-   * @function
+   * @function CoinService::graphql
    * @async
    * @param {String} query graphql query language
+   * @return {Object}
    */
   graphql(query) {
     const pathname = '/api/graphql/';
