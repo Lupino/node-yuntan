@@ -100,6 +100,26 @@ export default class CoinService extends Gateway {
 
   /**
    * GraphQL api
+   *   type Query {
+   *     coin(name: String!): Coin
+   *   }
+   *   type Coin {
+   *     history(from: Int, size: Int): [CoinHistory]
+   *     total: Int
+   *     score: Int
+   *     info: CoinInfo
+   *   }
+   *   type CoinHistory {
+   *     score: Int
+   *     pre_score: Int
+   *     type: String
+   *     desc: String
+   *     created_at: Int
+   *   }
+   *   type CoinInfo {
+   *
+   *   }
+   *
    * @function CoinService::graphql
    * @async
    * @param {String} query graphql query language
@@ -107,6 +127,37 @@ export default class CoinService extends Gateway {
    */
   graphql(query) {
     const pathname = '/api/graphql/';
+    return this.requestJSON({pathname, method: 'POST', form: {query}});
+  }
+
+  /**
+   * GraphQL api by name
+   *
+   *   type Query {
+   *     history(from: Int, size: Int): [CoinHistory]
+   *     total: Int
+   *     score: Int
+   *     info: CoinInfo
+   *   }
+   *   type CoinHistory {
+   *     score: Int
+   *     pre_score: Int
+   *     type: String
+   *     desc: String
+   *     created_at: Int
+   *   }
+   *   type CoinInfo {
+   *
+   *   }
+   *
+   * @function CoinService::graphqlByName
+   * @async
+   * @param {String} name name
+   * @param {String} query graphql query language
+   * @return {Object}
+   */
+  graphqlByName(name, query) {
+    const pathname = `/api/graphql/${name}/`;
     return this.requestJSON({pathname, method: 'POST', form: {query}});
   }
 }
