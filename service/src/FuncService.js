@@ -14,11 +14,16 @@ export default class FuncService extends Gateway {
    * Run a function
    * @async
    * @function FuncService::run
-   * @param {json} options
+   * @param {String} func Function name
+   * @param {Object} options
+   * @param {Object} [options.form] Form data
+   * @param {Object} [options.json] Json data
+   * @param {Binary} [options.raw] Raw binary data
+   * @param {String} [options.type] Type of raw binary data
    * @return {Response}
    */
-  run({func, ...other}) {
+  run(func, {from=null, json=null, raw=null, type=null} = {}) {
     const pathname = `/function/${func}`;
-    return this.request({method: 'POST', pathname, ...other});
+    return this.request({method: 'POST', pathname, from, json, raw, type});
   }
 }
