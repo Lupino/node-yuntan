@@ -5,6 +5,11 @@ import uuid from 'uuid/v4';
 /**
  * ArticleService
  * @class ArticleService
+ * @param {Object} config Service config
+ * @param {String} [config.host=https://gw.huabot.com] Service host
+ * @param {String} config.key Service key
+ * @param {String} [config.secret] Service secret
+ * @param {signSecret} [config.signSecret] dynamic secret sign function
  */
 export default class ArticleService extends Gateway {
   upload(fileName, raw) {

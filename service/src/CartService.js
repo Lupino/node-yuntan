@@ -5,11 +5,18 @@ import moment from 'moment';
 /**
  * CartService
  * @class CartService
+ * @param {Object} config Service config
+ * @param {String} [config.host=https://gw.huabot.com] Service host
+ * @param {String} config.key Service key
+ * @param {String} [config.secret] Service secret
+ * @param {signSecret} [config.signSecret] dynamic secret sign function
  */
 export default class CartService extends Gateway {
+  /* eslint-disable require-jsdoc */
   constructor(options) {
     super({...options, secure: true});
   }
+  /* eslint-enable require-jsdoc */
 
   /* eslint-disable camelcase */
   addProduct(username, {product_id, num=1}) {
