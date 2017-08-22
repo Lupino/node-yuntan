@@ -218,6 +218,34 @@ export default class UserService extends Gateway {
   }
   /**
    * GraphQL api
+   *   type Query {
+   *    user(name: String!): User
+   *    user(name: Enum!): User
+   *    user(id: Int!): User
+   *    bind(name: String!): Bind
+   *    bind(name: Enum!): Bind
+   *    users(from: Int, size: Int): [User]
+   *    total: Int
+   *   }
+   *   type User {
+   *    id: Int
+   *    name: String
+   *    extra: Extra
+   *    binds: [Bind]
+   *    created_at: Int
+   *   }
+   *   type Bind {
+   *    id: Int
+   *    user_id: Int
+   *    user: User
+   *    name: String
+   *    service: String
+   *    extra: Extra
+   *    created_at: Int
+   *   }
+   *   type Extra {
+   *
+   *   }
    * @function CoinService::graphql
    * @async
    * @param {String} query graphql query language
@@ -225,6 +253,83 @@ export default class UserService extends Gateway {
    */
   graphql(query) {
     const pathname = '/api/graphql/';
+    return this.requestJSON({pathname, method: 'POST', form: {query}});
+  }
+  /**
+   * GraphQL by user api
+   *   type Query {
+   *    id: Int
+   *    name: String
+   *    extra: Extra
+   *    binds: [Bind]
+   *    created_at: Int
+   *   }
+   *   type User {
+   *    id: Int
+   *    name: String
+   *    extra: Extra
+   *    binds: [Bind]
+   *    created_at: Int
+   *   }
+   *   type Bind {
+   *    id: Int
+   *    user_id: Int
+   *    user: User
+   *    name: String
+   *    service: String
+   *    extra: Extra
+   *    created_at: Int
+   *   }
+   *   type Extra {
+   *
+   *   }
+   * @function CoinService::graphqlByUser
+   * @async
+   * @param {String} uidOrName user_id or username
+   * @param {String} query graphql query language
+   * @return {Object}
+   */
+  graphqlByUser(uidOrName, query) {
+    const pathname = `/api/users/${uidOrName}/graphql/`;
+    return this.requestJSON({pathname, method: 'POST', form: {query}});
+  }
+  /**
+   * GraphQL by bind api
+   *   type Query {
+   *    id: Int
+   *    user_id: Int
+   *    user: User
+   *    name: String
+   *    service: String
+   *    extra: Extra
+   *    created_at: Int
+   *   }
+   *   type User {
+   *    id: Int
+   *    name: String
+   *    extra: Extra
+   *    binds: [Bind]
+   *    created_at: Int
+   *   }
+   *   type Bind {
+   *    id: Int
+   *    user_id: Int
+   *    user: User
+   *    name: String
+   *    service: String
+   *    extra: Extra
+   *    created_at: Int
+   *   }
+   *   type Extra {
+   *
+   *   }
+   * @function CoinService::graphqlByBind
+   * @async
+   * @param {String} query graphql query language
+   * @return {Object}
+   */
+  graphqlByBind(name, query) {
+    const pathname = `/api/binds/${name}/graphql/`;
     return this.requestJSON({pathname, method: 'POST', form: {query}});
   }
 }
