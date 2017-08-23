@@ -149,14 +149,19 @@ export default class Gateway {
    * @return {Object}
    */
   async requestJSON(options, spec=null) {
-    const rsp = await this.request(options).then((rsp) => rsp.json());
-    if (rsp.err) {
-      throw rsp.err;
+    const rsp = await this.request(options);
+    if (/application\/json/.test(rsp.headers.get('content-type'))) {
+      const data = await rsp.json();
+      if (data.err) {
+        throw data.err;
+      }
+      if (spec) {
+        return data[spec];
+      }
+      return data;
     }
-    if (spec) {
-      return rsp[spec];
-    } else {
-      return rsp;
-    }
+
+    const err = await rsp.text();
+    throw { err };
   }
 }

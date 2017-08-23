@@ -1,6 +1,6 @@
 {
   "name": "yuntan-gateway",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Node and brower client for yuntan service gateway.",
   "main": "lib/index.js",
   "browser": "lib/index-browserify.js",
