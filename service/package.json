@@ -1,11 +1,11 @@
 {
   "name": "yuntan-service",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Node and brower client for yuntan service.",
   "main": "lib/index.js",
   "scripts": {
     "compile": "babel --plugins=transform-runtime --presets es2015,stage-3 -d lib src",
-    "prepublish": "npm run compile",
+    "prepare": "npm run compile",
     "eslint": "eslint src --fix",
     "jsdoc": "jsdoc src"
   },
@@ -36,6 +36,6 @@
     "jsdoc": "^3.5.4",
     "moment": "^2.18.1",
     "uuid": "^3.1.0",
-    "yuntan-gateway": "^1.0.4"
+    "yuntan-gateway": "^1.0.5"
   }
 }
