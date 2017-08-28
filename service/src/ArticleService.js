@@ -76,7 +76,7 @@ export default class ArticleService extends Gateway {
   /* eslint-disable camelcase */
   exists(from_url) {
     const pathname = '/api/check/';
-    return this.requestJSON({pathname, from: {from_url}}, 'id');
+    return this.requestJSON({pathname, form: {from_url}}, 'id');
   }
   /* eslint-enable camelcase */
 
