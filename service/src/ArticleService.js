@@ -12,9 +12,17 @@ import uuid from 'uuid/v4';
  * @param {signSecret} [config.signSecret] dynamic secret sign function
  */
 export default class ArticleService extends Gateway {
-  upload(fileName, raw) {
-    const pathname = '/api/upload/';
-    return this.requestJSON({pathname, method: 'PUT', raw, query: {fileName}});
+  saveFile(fileKey, bucket = 'upload', extra = {}) {
+    const pathname = `/api/file/${fileKey}`;
+    if (typeof extra !== 'string') {
+      extra = JSON.stringify(extra);
+    }
+    return this.requestJSON({pathname, method: 'POST', form: {bucket, extra}});
+  }
+
+  getFile(fileKey) {
+    const pathname = `/api/file/${fileKey}`;
+    return this.requestJSON({pathname});
   }
 
   /* eslint-disable camelcase */
