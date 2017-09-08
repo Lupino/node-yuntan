@@ -13,7 +13,7 @@ import {signJSON} from './sha256-browserify';
 export default class Gateway extends RawGateway {
   /* eslint-disable require-jsdoc */
   constructor(config) {
-    super(config, {signJSON, signParam: signJSON, jsapi: true});
+    super(config, {signJSON, signParam: signJSON});
   }
   /* eslint-enable require-jsdoc */
 }

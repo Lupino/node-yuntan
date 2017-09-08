@@ -20,17 +20,15 @@ import fetch from 'isomorphic-fetch';
  *  @param {signSecret} [config.signSecret] dynamic secret sign function
  *  @param {Boolean} [config.secure=false] Is a secure service
  *  @param {Object} options Signature method config
- *  @param {Boolean} [options.jsapi=false] Is request with jsapi
  *  @param {signJSON} options.signJSON
  *  @param {signParam} options.signParam
  */
 export default class Gateway {
   /* eslint-disable require-jsdoc */
   constructor({host, key, secret = '', secure = false, signSecret = false} = {},
-    {jsapi = false, signJSON, signParam} = {}) {
+    {signJSON, signParam} = {}) {
     this.host = host || 'https://gw.huabot.com';
     this.key = key;
-    this.jsapi = jsapi;
     this.secret = secret;
     this.secure = secure;
     this.signSecret = signSecret;
@@ -97,7 +95,7 @@ export default class Gateway {
 
       let secret = this.secret;
 
-      if (this.jsapi) {
+      if (this.signSecret) {
         const {nonce, secret: secret_, timestamp} = await this.getSecret(method,
           pathname);
         headers['X-REQUEST-TYPE'] = 'JSAPI';
