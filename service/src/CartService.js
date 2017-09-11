@@ -99,7 +99,7 @@ export default class CartService extends Gateway {
     return this.requestJSON({pathname});
   }
 
-  removeOrder({orderIdOrSN}) {
+  removeOrder(orderIdOrSN) {
     const pathname = `/api/orders/${orderIdOrSN}/`;
     return this.requestJSON({pathname, method: 'DELETE'}, 'result');
   }
