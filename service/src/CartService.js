@@ -44,6 +44,7 @@ export default class CartService extends Gateway {
     order_sn=`D${moment().format('YYYYMMDDHHmmss')}`,
     status='created'}) {
     const pathname = '/api/orders/';
+    body = JSON.stringify(body);
     return this.requestJSON({pathname, method: 'POST',
       form: {username, amount, body, order_sn, status}});
   }
@@ -62,6 +63,7 @@ export default class CartService extends Gateway {
 
   updateOrderBody(orderIdOrSN, body) {
     const pathname = `/api/orders/${orderIdOrSN}/body/`;
+    body = JSON.stringify(body);
     return this.requestJSON({pathname, method: 'POST', form: {body}}, 'result');
   }
 
