@@ -151,7 +151,7 @@ export default class Gateway {
     if (/application\/json/.test(rsp.headers.get('content-type'))) {
       const data = await rsp.json();
       if (data.err) {
-        throw data.err;
+        throw new Error(data.err);
       }
       if (spec) {
         return data[spec];
@@ -160,6 +160,6 @@ export default class Gateway {
     }
 
     const err = await rsp.text();
-    throw { err };
+    throw new Error(err);
   }
 }
