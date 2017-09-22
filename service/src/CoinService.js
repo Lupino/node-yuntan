@@ -83,6 +83,25 @@ export default class CoinService extends Gateway {
   }
 
   /**
+   * Get coin history list
+   * @function CoinService::getList
+   * @async
+   * @param {Object} [query] query string
+   * @param {Number} [query.from=0]
+   * @param {Number} [query.size=10]
+   * @param {Number} [query.start_time=0]
+   * @param {Number} [query.end_time=now]
+   * @return {Number} from
+   * @return {Number} size
+   * @return {Number} total
+   * @return {Coin[]} coins
+   */
+  getHistory(query = {}) {
+    const pathname = '/api/coins_history/';
+    return this.requestJSON({pathname, query});
+  }
+
+  /**
    * Save coin
    * @function CoinService::save
    * @async
