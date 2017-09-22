@@ -1,6 +1,6 @@
 {
   "name": "yuntan-service",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Node and brower client for yuntan service.",
   "main": "lib/index.js",
   "scripts": {
