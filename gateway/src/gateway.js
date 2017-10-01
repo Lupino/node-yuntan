@@ -86,7 +86,7 @@ export default class Gateway {
     method = method.toUpperCase();
 
     if (method !== 'GET' || this.secure) {
-      let signData = {sign_path: pathname, key: this.key};
+      let signData = {pathname, key: this.key};
       if (raw) {
         signData = {raw, ...signData};
       } else {
