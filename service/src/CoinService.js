@@ -65,6 +65,17 @@ export default class CoinService extends Gateway {
   }
 
   /**
+   * Drop coin data
+   * @function CoinService::dropCoin
+   * @async
+   * @param {String} name name
+   */
+  dropCoin(name) {
+    const pathname = `/api/coins/${name}/drop/`;
+    return this.requestJSON({pathname, method: 'POST'});
+  }
+
+  /**
    * Get coin list
    * @function CoinService::getList
    * @async
