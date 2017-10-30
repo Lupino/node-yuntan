@@ -157,4 +157,9 @@ export default class ArticleService extends Gateway {
     const pathname = `/api/timeline/${timeline}/meta`;
     return this.requestJSON({pathname, method: 'DELETE'}, 'result');
   }
+
+  graphql(query) {
+    const pathname = '/api/graphql/';
+    return this.requestJSON({pathname, method: 'POST', form: {query}});
+  }
 }
