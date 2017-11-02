@@ -55,12 +55,18 @@ export default class ArticleService extends Gateway {
   }
 
   updateExtra(artId, extra) {
+    if (typeof extra !== "string") {
+      extra = JSON.stringify(extra);
+    }
     const pathname = `/api/articles/${artId}/extra`;
     return this.requestJSON({pathname, method: 'POST', form: {extra}},
       'result');
   }
 
   removeExtra(artId, extra) {
+    if (typeof extra !== "string") {
+      extra = JSON.stringify(extra);
+    }
     const pathname = `/api/articles/${artId}/extra`;
     return this.requestJSON({pathname, method: 'DELETE', form: {extra}},
       'result');
