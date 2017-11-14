@@ -95,7 +95,7 @@ export default class CoinService extends Gateway {
 
   /**
    * Get coin history list
-   * @function CoinService::getList
+   * @function CoinService::getHistory
    * @async
    * @param {Object} [query] query string
    * @param {Number} [query.from=0]
@@ -113,11 +113,32 @@ export default class CoinService extends Gateway {
   }
 
   /**
+   * Get coin history list by namespace
+   * @function CoinService::getHistoryByNameSpace
+   * @async
+   * @param {String} namespace spec namespace
+   * @param {Object} [query] query string
+   * @param {Number} [query.from=0]
+   * @param {Number} [query.size=10]
+   * @param {Number} [query.start_time=0]
+   * @param {Number} [query.end_time=now]
+   * @return {Number} from
+   * @return {Number} size
+   * @return {Number} total
+   * @return {Coin[]} coins
+   */
+  getHistoryByNameSpace(namespace, query = {}) {
+    const pathname = `/api/coins_history/${namespace}/`;
+    return this.requestJSON({pathname, query});
+  }
+
+  /**
    * Save coin
    * @function CoinService::save
    * @async
    * @param {Coin} coin
    * @param {String} coin.name coin name
+   * @param {String} coin.namespace spec namespace
    * @param {Number} coin.score coin score
    * @param {String} [coin.desc] coin description
    * @param {String} coin.type One of Incr, Decr, incr, decr
