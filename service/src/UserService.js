@@ -216,6 +216,51 @@ export default class UserService extends Gateway {
     const pathname = `/api/binds/${bid}`;
     return this.requestJSON({pathname, method: 'DELETE'}, 'result');
   }
+
+  /**
+   * Get user list by group
+   * @function UserService::getListByGroup
+   * @async
+   * @param {String} group group name
+   * @param {Object} [query] query string
+   * @param {Number} [query.from=0]
+   * @param {Number} [query.size=10]
+   * @return {Number} from
+   * @return {Number} size
+   * @return {Number} total
+   * @return {User[]} users
+   */
+  getListByGroup(group, {from = 0, size = 10} = {}) {
+    const pathname = `/api/groups/${group}/`;
+    return this.requestJSON({pathname, query: {from, size}});
+  }
+
+  /**
+   * Create group
+   * @function UserService::createGroup
+   * @async
+   * @param {String} uidOrName user_id or username
+   * @param {String} group  group name
+   * @return {String} ok
+   */
+  createGroup(uidOrName, group) {
+    const pathname = `/api/groups/${group}/${uidOrName}/`;
+    return this.requestJSON({pathname, method: 'POST'});
+  }
+
+  /**
+   * Remove group
+   * @function UserService::removeGroup
+   * @async
+   * @param {String} uidOrName user_id or username
+   * @param {String} group  group name
+   * @return {String} ok
+   */
+  removeGroup(uidOrName, group) {
+    const pathname = `/api/groups/${group}/${uidOrName}/`;
+    return this.requestJSON({pathname, method: 'DELETE'});
+  }
+
   /**
    * GraphQL api
    *   type Query {
