@@ -35,7 +35,7 @@ export default class CoinService extends Gateway {
    */
   getScore(name) {
     const pathname = `/api/coins/${name}/score/`;
-    return this.requestJSON({pathname}, 'score');
+    return this.requestJSON({pathname});
   }
 
   /**
@@ -146,7 +146,7 @@ export default class CoinService extends Gateway {
    */
   save({name, ...form}) {
     const pathname = `/api/coins/${name}/`;
-    return this.requestJSON({pathname, method: 'POST', form}, 'score');
+    return this.requestJSON({pathname, method: 'POST', form});
   }
 
   /**

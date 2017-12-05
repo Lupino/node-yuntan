@@ -31,27 +31,26 @@ export default class ArticleService extends Gateway {
     const pathname = '/api/articles/';
     return this.requestJSON({pathname, method: 'POST',
       form: {title, summary, content, from_url,
-        created_at}}, 'article');
+        created_at}});
   }
   /* eslint-enable camelcase */
 
   update(artId, {title = '', summary = '', content = ''}) {
     const pathname = `/api/articles/${artId}/`;
     return this.requestJSON({pathname, method: 'POST',
-      form: {title, summary, content}}, 'article');
+      form: {title, summary, content}});
   }
 
   /* eslint-disable camelcase */
   updateCover(artId, file_id) {
     const pathname = `/api/articles/${artId}/cover`;
-    return this.requestJSON({pathname, method: 'POST', form: {file_id}},
-      'result');
+    return this.requestJSON({pathname, method: 'POST', form: {file_id}});
   }
   /* eslint-enable camelcase */
 
   removeCover(artId) {
     const pathname = `/api/articles/${artId}/cover`;
-    return this.requestJSON({pathname, method: 'DELETE'}, 'result');
+    return this.requestJSON({pathname, method: 'DELETE'});
   }
 
   updateExtra(artId, extra) {
@@ -59,8 +58,7 @@ export default class ArticleService extends Gateway {
       extra = JSON.stringify(extra);
     }
     const pathname = `/api/articles/${artId}/extra`;
-    return this.requestJSON({pathname, method: 'POST', form: {extra}},
-      'result');
+    return this.requestJSON({pathname, method: 'POST', form: {extra}});
   }
 
   removeExtra(artId, extra) {
@@ -68,29 +66,28 @@ export default class ArticleService extends Gateway {
       extra = JSON.stringify(extra);
     }
     const pathname = `/api/articles/${artId}/extra`;
-    return this.requestJSON({pathname, method: 'DELETE', form: {extra}},
-      'result');
+    return this.requestJSON({pathname, method: 'DELETE', form: {extra}});
   }
 
   clearExtra(artId) {
     const pathname = `/api/articles/${artId}/extra/clear`;
-    return this.requestJSON({pathname, method: 'POST'}, 'result');
+    return this.requestJSON({pathname, method: 'POST'});
   }
 
   remove(artId) {
     const pathname = `/api/articles/${artId}/`;
-    return this.requestJSON({pathname, method: 'DELETE'}, 'result');
+    return this.requestJSON({pathname, method: 'DELETE'});
   }
 
   get(artId) {
     const pathname = `/api/articles/${artId}/`;
-    return this.requestJSON({pathname}, 'article');
+    return this.requestJSON({pathname});
   }
 
   /* eslint-disable camelcase */
   exists(from_url) {
     const pathname = '/api/check/';
-    return this.requestJSON({pathname, query: {from_url}}, 'id');
+    return this.requestJSON({pathname, query: {from_url}});
   }
   /* eslint-enable camelcase */
 
@@ -101,46 +98,44 @@ export default class ArticleService extends Gateway {
 
   createTag(tag) {
     const pathname = '/api/tags/';
-    return this.requestJSON({pathname, method: 'POST', form: {tag}}, 'tag');
+    return this.requestJSON({pathname, method: 'POST', form: {tag}});
   }
 
   getTag(tagId) {
     const pathname = `/api/tags/${tagId}/`;
-    return this.requestJSON({pathname}, 'tag');
+    return this.requestJSON({pathname});
   }
 
   addArticleTag(artId, tag) {
     const pathname = `/api/articles/${artId}/tags/`;
-    return this.requestJSON({pathname, method: 'POST', form: {tag}}, 'result');
+    return this.requestJSON({pathname, method: 'POST', form: {tag}});
   }
 
   removeArticleTag(artId, tag) {
     const pathname = `/api/articles/${artId}/tags/`;
-    return this.requestJSON({pathname, method: 'DELETE', form: {tag}},
-      'result');
+    return this.requestJSON({pathname, method: 'DELETE', form: {tag}});
   }
 
   updateTag(tagId, tag) {
     const pathname = `/api/tags/${tagId}/`;
-    return this.requestJSON({pathname, method: 'POST', form: {tag}}, 'result');
+    return this.requestJSON({pathname, method: 'POST', form: {tag}});
   }
 
   getTagByName(tag) {
     const pathname = '/api/tags/';
-    return this.requestJSON({pathname, query: {tag}}, 'tag');
+    return this.requestJSON({pathname, query: {tag}});
   }
 
   /* eslint-disable camelcase */
   createTimeline(timeline, art_id) {
     const pathname = `/api/timeline/${timeline}/`;
-    return this.requestJSON({pathname, method: 'POST', form: {art_id}},
-      'result');
+    return this.requestJSON({pathname, method: 'POST', form: {art_id}});
   }
   /* eslint-enable camelcase */
 
   removeTimeline(timeline, artId) {
     const pathname = `/api/timeline/${timeline}/${artId}/`;
-    return this.requestJSON({pathname, method: 'DELETE'}, 'result');
+    return this.requestJSON({pathname, method: 'DELETE'});
   }
 
   getTimelineList(timeline, {from = 0, size = 10} = {}) {
@@ -151,7 +146,7 @@ export default class ArticleService extends Gateway {
   saveTimelineMeta(timeline, {title = '', summary = ''}) {
     const pathname = `/api/timeline/${timeline}/meta`;
     return this.requestJSON({pathname, method: 'POST',
-      form: {title, summary}}, 'result');
+      form: {title, summary}});
   }
 
   getTimelineMeta(timeline) {
@@ -161,7 +156,7 @@ export default class ArticleService extends Gateway {
 
   removeTimelineMeta(timeline) {
     const pathname = `/api/timeline/${timeline}/meta`;
-    return this.requestJSON({pathname, method: 'DELETE'}, 'result');
+    return this.requestJSON({pathname, method: 'DELETE'});
   }
 
   graphql(query) {

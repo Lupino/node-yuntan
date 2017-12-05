@@ -90,7 +90,7 @@ export default class UserService extends Gateway {
    */
   remove(uidOrName) {
     const pathname = `/api/users/${uidOrName}/`;
-    return this.requestJSON({pathname, method: 'DELETE'}, 'result');
+    return this.requestJSON({pathname, method: 'DELETE'});
   }
 
   /**
@@ -103,7 +103,7 @@ export default class UserService extends Gateway {
    */
   updateName(uidOrName, username) {
     const pathname = `/api/users/${uidOrName}/`;
-    return this.requestJSON({pathname, method: 'POST', form: {username}}, 'result');
+    return this.requestJSON({pathname, method: 'POST', form: {username}});
   }
 
   /**
@@ -116,8 +116,7 @@ export default class UserService extends Gateway {
    */
   updatePassword(uidOrName, passwd) {
     const pathname = `/api/users/${uidOrName}/passwd`;
-    return this.requestJSON({pathname, method: 'POST', form: {passwd}},
-      'result');
+    return this.requestJSON({pathname, method: 'POST', form: {passwd}});
   }
 
   /**
@@ -131,7 +130,7 @@ export default class UserService extends Gateway {
   updateExtra(uidOrName, extra) {
     const pathname = `/api/users/${uidOrName}/extra`;
     extra = JSON.stringify(extra);
-    return this.requestJSON({pathname, method: 'POST', form: {extra}}, 'result');
+    return this.requestJSON({pathname, method: 'POST', form: {extra}});
   }
 
   /**
@@ -145,8 +144,7 @@ export default class UserService extends Gateway {
   removeExtra(uidOrName, extra) {
     const pathname = `/api/users/${uidOrName}/extra`;
     extra = JSON.stringify(extra);
-    return this.requestJSON({pathname, method: 'DELETE', form: {extra}},
-      'result');
+    return this.requestJSON({pathname, method: 'DELETE', form: {extra}});
   }
 
   /**
@@ -158,7 +156,7 @@ export default class UserService extends Gateway {
    */
   clearExtra(uidOrName) {
     const pathname = `/api/users/${uidOrName}/extra/clear`;
-    return this.requestJSON({pathname, method: 'POST'}, 'result');
+    return this.requestJSON({pathname, method: 'POST'});
   }
 
   /**
@@ -171,8 +169,7 @@ export default class UserService extends Gateway {
    */
   verifyPassword(uidOrName, passwd) {
     const pathname = `/api/users/${uidOrName}/verify`;
-    return this.requestJSON({pathname, method: 'POST', form: {passwd}},
-      'result');
+    return this.requestJSON({pathname, method: 'POST', form: {passwd}});
   }
 
   /**
@@ -214,7 +211,7 @@ export default class UserService extends Gateway {
    */
   removeBind(bid) {
     const pathname = `/api/binds/${bid}`;
-    return this.requestJSON({pathname, method: 'DELETE'}, 'result');
+    return this.requestJSON({pathname, method: 'DELETE'});
   }
 
   /**

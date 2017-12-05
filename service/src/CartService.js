@@ -21,21 +21,19 @@ export default class CartService extends Gateway {
   /* eslint-disable camelcase */
   addProduct(username, {product_id, num=1}) {
     const pathname = `/api/cart/${username}/`;
-    return this.requestJSON({pathname, method: 'POST', form: {product_id, num}},
-      'result');
+    return this.requestJSON({pathname, method: 'POST', form: {product_id, num}});
   }
   /* eslint-enable camelcase */
 
   getCart(username) {
     const pathname = `/api/cart/${username}/`;
-    return this.requestJSON({pathname}, 'result');
+    return this.requestJSON({pathname});
   }
 
   /* eslint-disable camelcase */
   removeProduct(username, product_id) {
     const pathname = `/api/cart/${username}/`;
-    return this.requestJSON({pathname, method: 'DELETE', form: {product_id}},
-      'result');
+    return this.requestJSON({pathname, method: 'DELETE', form: {product_id}});
   }
   /* eslint-enable camelcase */
 
@@ -52,25 +50,24 @@ export default class CartService extends Gateway {
 
   updateOrderStatus(orderIdOrSN, status) {
     const pathname = `/api/orders/${orderIdOrSN}/status/${status}/`;
-    return this.requestJSON({pathname, method: 'POST'}, 'result');
+    return this.requestJSON({pathname, method: 'POST'});
   }
 
   updateOrderStatusByUserName(username, orderIdOrSN, status) {
     const pathname = `/api/orders_by/user/${username}/${orderIdOrSN}/` +
       `status/${status}/`;
-    return this.requestJSON({pathname, method: 'POST'}, 'result');
+    return this.requestJSON({pathname, method: 'POST'});
   }
 
   updateOrderBody(orderIdOrSN, body) {
     const pathname = `/api/orders/${orderIdOrSN}/body/`;
     body = JSON.stringify(body);
-    return this.requestJSON({pathname, method: 'POST', form: {body}}, 'result');
+    return this.requestJSON({pathname, method: 'POST', form: {body}});
   }
 
   updateOrderAmount(orderIdOrSN, amount) {
     const pathname = `/api/orders/${orderIdOrSN}/amount/`;
-    return this.requestJSON({pathname, method: 'POST', form: {amount}},
-      'result');
+    return this.requestJSON({pathname, method: 'POST', form: {amount}});
   }
 
   getOrderList({from = 0, size = 10} = {}) {
@@ -101,6 +98,6 @@ export default class CartService extends Gateway {
 
   removeOrder(orderIdOrSN) {
     const pathname = `/api/orders/${orderIdOrSN}/`;
-    return this.requestJSON({pathname, method: 'DELETE'}, 'result');
+    return this.requestJSON({pathname, method: 'DELETE'});
   }
 }

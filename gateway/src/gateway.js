@@ -1,5 +1,6 @@
 import qs from 'querystring';
 import fetch from 'isomorphic-fetch';
+import keys from 'lodash.keys';
 
 /**
  * Dynamic sign secret for third part server usage
@@ -143,18 +144,26 @@ export default class Gateway {
    * @param {Object} [options.json] Json data
    * @param {Binary} [options.raw] Raw binary data
    * @param {String} [options.type] Type of raw binary data
-   * @param {String} spec Special key of result to extract
    * @return {Object}
    */
-  async requestJSON(options, spec=null) {
+  async requestJSON(options) {
     const rsp = await this.request(options);
     if (/application\/json/.test(rsp.headers.get('content-type'))) {
       const data = await rsp.json();
       if (data.err) {
         throw new Error(data.err);
       }
-      if (spec) {
-        return data[spec];
+
+      if (Array.isArray(data)) {
+        return data;
+      }
+      if (typeof data === 'object') {
+        const k = keys(data);
+        if (k.length === 1) {
+          return data[k[0]];
+        } else {
+          return data;
+        }
       }
       return data;
     }
