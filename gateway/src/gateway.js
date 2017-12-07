@@ -150,8 +150,8 @@ export default class Gateway {
     const rsp = await this.request(options);
     if (/application\/json/.test(rsp.headers.get('content-type'))) {
       const data = await rsp.json();
-      if (data.err) {
-        throw new Error(data.err);
+      if (data.err || data.error || data.errors) {
+        throw new Error(data.err || data.error || data.errors);
       }
 
       if (Array.isArray(data)) {
