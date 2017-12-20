@@ -83,6 +83,7 @@ export default class CoinService extends Gateway {
    * @param {Object} [query] query string
    * @param {Number} [query.from=0]
    * @param {Number} [query.size=10]
+   * @param {String} [query.type]
    * @return {Number} from
    * @return {Number} size
    * @return {Number} total
