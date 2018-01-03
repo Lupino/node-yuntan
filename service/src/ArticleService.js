@@ -54,7 +54,7 @@ export default class ArticleService extends Gateway {
   }
 
   updateExtra(artId, extra) {
-    if (typeof extra !== "string") {
+    if (typeof extra !== 'string') {
       extra = JSON.stringify(extra);
     }
     const pathname = `/api/articles/${artId}/extra`;
@@ -62,7 +62,7 @@ export default class ArticleService extends Gateway {
   }
 
   removeExtra(artId, extra) {
-    if (typeof extra !== "string") {
+    if (typeof extra !== 'string') {
       extra = JSON.stringify(extra);
     }
     const pathname = `/api/articles/${artId}/extra`;

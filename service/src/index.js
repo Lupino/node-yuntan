@@ -5,6 +5,7 @@ import UserService from './UserService';
 import ArticleService from './ArticleService';
 import CartService from './CartService';
 import SearchService from './SearchService';
+import ShareService from './ShareService';
 
 export {
   CoinService,
@@ -14,4 +15,5 @@ export {
   ArticleService,
   CartService,
   SearchService,
+  ShareService,
 };
