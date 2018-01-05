@@ -53,16 +53,18 @@ export default class Gateway {
    * @return {json}
    */
   async getSecret(method, path) {
-    let secret = cache[method + path];
+    const key = `${this.key}${method}${path}`;
+
+    const secret = cache[key];
     const expiredAt = Math.floor(new Date() / 1000) - 250;
     if (secret && secret.timestamp > expiredAt) {
       return secret;
     }
 
-    secret = await this.signSecret(method, path);
-    secret.timestamp = Number(secret.timestamp);
-    cache[method + path] = secret;
-    return secret;
+    const newSecret = await this.signSecret(method, path);
+    newSecret.timestamp = Number(newSecret.timestamp);
+    cache[key] = newSecret;
+    return newSecret;
   }
 
   /**
