@@ -3,6 +3,11 @@ import fetch from 'isomorphic-fetch';
 import keys from 'lodash.keys';
 
 /**
+ * cache the dynamic secret.
+ */
+const cache = {};
+
+/**
  * Dynamic sign secret for third part server usage
  *
  * @function signSecret
@@ -33,7 +38,6 @@ export default class Gateway {
     this.secret = secret;
     this.secure = secure;
     this.signSecret = signSecret;
-    this.secrets = {};
     this.signJSON = signJSON;
     this.signParam = signParam;
   }
@@ -49,7 +53,7 @@ export default class Gateway {
    * @return {json}
    */
   async getSecret(method, path) {
-    let secret = this.secrets[method + path];
+    let secret = cache[method + path];
     const expiredAt = Math.floor(new Date() / 1000) - 250;
     if (secret && secret.timestamp > expiredAt) {
       return secret;
@@ -57,7 +61,7 @@ export default class Gateway {
 
     secret = await this.signSecret(method, path);
     secret.timestamp = Number(secret.timestamp);
-    this.secrets[method + path] = secret;
+    cache[method + path] = secret;
     return secret;
   }
 
