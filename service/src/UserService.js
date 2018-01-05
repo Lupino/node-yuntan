@@ -215,6 +215,61 @@ export default class UserService extends Gateway {
   }
 
   /**
+   * Get bind list by user
+   * @function UserService::getBindListByUser
+   * @async
+   * @param {String} uidOrName user_id or username
+   * @param {Object} [query] query string
+   * @param {Number} [query.from=0]
+   * @param {Number} [query.size=10]
+   * @return {Number} from
+   * @return {Number} size
+   * @return {Number} total
+   * @return {Bind[]} binds
+   */
+  getBindListByUser(uidOrName, {from = 0, size = 10} = {}) {
+    const pathname = `/api/users/${uidOrName}/binds/`;
+    return this.requestJSON({pathname, query: {from, size}});
+  }
+
+  /**
+   * Get bind list by service
+   * @function UserService::getBindListByService
+   * @async
+   * @param {String} service bind service
+   * @param {Object} [query] query string
+   * @param {Number} [query.from=0]
+   * @param {Number} [query.size=10]
+   * @return {Number} from
+   * @return {Number} size
+   * @return {Number} total
+   * @return {Bind[]} binds
+   */
+  getBindListByService(service, {from = 0, size = 10} = {}) {
+    const pathname = `/api/service/${service}/binds/`;
+    return this.requestJSON({pathname, query: {from, size}});
+  }
+
+  /**
+   * Get bind list by user and service
+   * @function UserService::getBindListByUserAndService
+   * @async
+   * @param {String} uidOrName user_id or username
+   * @param {String} service bind service
+   * @param {Object} [query] query string
+   * @param {Number} [query.from=0]
+   * @param {Number} [query.size=10]
+   * @return {Number} from
+   * @return {Number} size
+   * @return {Number} total
+   * @return {Bind[]} binds
+   */
+  getBindListByUserAndService(uidOrName, service, {from = 0, size = 10} = {}) {
+    const pathname = `/api/users/${uidOrName}/binds/${service}/`;
+    return this.requestJSON({pathname, query: {from, size}});
+  }
+
+  /**
    * Get user list by group
    * @function UserService::getListByGroup
    * @async
@@ -261,29 +316,46 @@ export default class UserService extends Gateway {
   /**
    * GraphQL api
    *   type Query {
-   *    user(name: String!): User
-   *    user(name: Enum!): User
-   *    user(id: Int!): User
-   *    bind(name: String!): Bind
-   *    bind(name: Enum!): Bind
-   *    users(from: Int, size: Int): [User]
-   *    total: Int
+   *     user(name: String!): User
+   *     user(name: Enum!): User
+   *     user(id: Int!): User
+   *     bind(name: String!): Bind
+   *     bind(name: Enum!): Bind
+   *     service(service: String!): Service
+   *     service_binds(service: String!, from: Int, size: Int): [Bind]
+   *     service_bind_count(service: String!)
+   *     users(from: Int, size: Int): [User]
+   *     user_count: Int
+   *     group(group: String): Group
+   *   }
+   *   type Service {
+   *     service: String
+   *     binds(from: Int, size: Int): [Bind]
+   *     bind_count: Int
+   *   }
+   *   type Group {
+   *     group: String
+   *     users(from: Int, size: Int): [User]
+   *     user_count: Int
    *   }
    *   type User {
-   *    id: Int
-   *    name: String
-   *    extra: Extra
-   *    binds: [Bind]
-   *    created_at: Int
+   *     id: Int
+   *     name: String
+   *     extra: Extra
+   *     binds(from: Int, size: Int): [Bind]
+   *     bind_count: Int
+   *     groups: [String]
+   *     service(service: String!): Service
+   *     created_at: Int
    *   }
    *   type Bind {
-   *    id: Int
-   *    user_id: Int
-   *    user: User
-   *    name: String
-   *    service: String
-   *    extra: Extra
-   *    created_at: Int
+   *     id: Int
+   *     user_id: Int
+   *     user: User
+   *     name: String
+   *     service: String
+   *     extra: Extra
+   *     created_at: Int
    *   }
    *   type Extra {
    *
@@ -297,34 +369,9 @@ export default class UserService extends Gateway {
     const pathname = '/api/graphql/';
     return this.requestJSON({pathname, method: 'POST', form: {query}});
   }
+
   /**
    * GraphQL by user api
-   *   type Query {
-   *    id: Int
-   *    name: String
-   *    extra: Extra
-   *    binds: [Bind]
-   *    created_at: Int
-   *   }
-   *   type User {
-   *    id: Int
-   *    name: String
-   *    extra: Extra
-   *    binds: [Bind]
-   *    created_at: Int
-   *   }
-   *   type Bind {
-   *    id: Int
-   *    user_id: Int
-   *    user: User
-   *    name: String
-   *    service: String
-   *    extra: Extra
-   *    created_at: Int
-   *   }
-   *   type Extra {
-   *
-   *   }
    * @function CoinService::graphqlByUser
    * @async
    * @param {String} uidOrName user_id or username
@@ -335,43 +382,30 @@ export default class UserService extends Gateway {
     const pathname = `/api/users/${uidOrName}/graphql/`;
     return this.requestJSON({pathname, method: 'POST', form: {query}});
   }
+
   /**
    * GraphQL by bind api
-   *   type Query {
-   *    id: Int
-   *    user_id: Int
-   *    user: User
-   *    name: String
-   *    service: String
-   *    extra: Extra
-   *    created_at: Int
-   *   }
-   *   type User {
-   *    id: Int
-   *    name: String
-   *    extra: Extra
-   *    binds: [Bind]
-   *    created_at: Int
-   *   }
-   *   type Bind {
-   *    id: Int
-   *    user_id: Int
-   *    user: User
-   *    name: String
-   *    service: String
-   *    extra: Extra
-   *    created_at: Int
-   *   }
-   *   type Extra {
-   *
-   *   }
    * @function CoinService::graphqlByBind
    * @async
+   * @param {String} name bind name
    * @param {String} query graphql query language
    * @return {Object}
    */
   graphqlByBind(name, query) {
     const pathname = `/api/binds/${name}/graphql/`;
+    return this.requestJSON({pathname, method: 'POST', form: {query}});
+  }
+
+  /**
+   * GraphQL by service api
+   * @function CoinService::graphqlByBind
+   * @async
+   * @param {String} service bind service
+   * @param {String} query graphql query language
+   * @return {Object}
+   */
+  graphqlByService(name, query) {
+    const pathname = `/api/service/${name}/graphql/`;
     return this.requestJSON({pathname, method: 'POST', form: {query}});
   }
 }
