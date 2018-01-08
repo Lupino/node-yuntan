@@ -206,12 +206,25 @@ export default class UserService extends Gateway {
    * Remove bind
    * @function UserService::removeBind
    * @async
-   * @param {Number} bind_id Bind ID
+   * @param {Number} bidOrName Bind ID or Bind name
    * @return {String}
    */
-  removeBind(bid) {
-    const pathname = `/api/binds/${bid}`;
+  removeBind(bidOrName) {
+    const pathname = `/api/binds/${bidOrName}/`;
     return this.requestJSON({pathname, method: 'DELETE'});
+  }
+
+  /**
+   * Update bind extra
+   * @function UserService::updateBindExtra
+   * @async
+   * @param {Number} bidOrName Bind ID or Bind name
+   * @param {Object} extra Bind extra value
+   * @return {String}
+   */
+  updateBindExtra(bidOrName, extra) {
+    const pathname = `/api/binds/${bidOrName}/`;
+    return this.requestJSON({pathname, method: 'POST', form: {extra}});
   }
 
   /**
