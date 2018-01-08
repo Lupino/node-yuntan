@@ -224,6 +224,7 @@ export default class UserService extends Gateway {
    */
   updateBindExtra(bidOrName, extra) {
     const pathname = `/api/binds/${bidOrName}/`;
+    extra = JSON.stringify(extra);
     return this.requestJSON({pathname, method: 'POST', form: {extra}});
   }
 
