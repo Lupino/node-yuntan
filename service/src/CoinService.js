@@ -95,6 +95,26 @@ export default class CoinService extends Gateway {
   }
 
   /**
+   * Get coin list with namespace
+   * @function CoinService::getList
+   * @async
+   * @param {String} name name
+   * @param {String} namespace namespace
+   * @param {Object} [query] query string
+   * @param {Number} [query.from=0]
+   * @param {Number} [query.size=10]
+   * @param {String} [query.type]
+   * @return {Number} from
+   * @return {Number} size
+   * @return {Number} total
+   * @return {Coin[]} coins
+   */
+  getListWithNameSpace(name, namespace, query = {}) {
+    const pathname = `/api/coins/${name}/namespace/${namespace}/`;
+    return this.requestJSON({pathname, query});
+  }
+
+  /**
    * Get coin history list
    * @function CoinService::getHistory
    * @async
