@@ -1,6 +1,7 @@
 import qs from 'querystring';
 import fetch from 'isomorphic-fetch';
 import keys from 'lodash.keys';
+import compact from 'lodash.compact';
 
 /**
  * cache the dynamic secret.
@@ -113,6 +114,8 @@ export default class Gateway {
         signData.timestamp = Math.floor(new Date() / 1000);
       }
 
+      signData = compact(signData);
+
       if (json) {
         headers['X-REQUEST-SIGNATURE'] = this.signJSON(secret, signData);
       } else {
@@ -127,10 +130,10 @@ export default class Gateway {
     if (form) {
       headers['content-type'] = 'application/x-www-form-urlencoded;' +
         'charset=UTF-8';
-      body = qs.stringify(form);
+      body = qs.stringify(compact(form));
     } else if (json) {
       headers['Content-Type'] = 'application/json';
-      body = JSON.stringify(json);
+      body = JSON.stringify(compact(json));
     } else if (raw) {
       headers['Content-Type'] = type || 'application/x-raw-data';
       body = raw;

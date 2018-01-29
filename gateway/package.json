@@ -1,6 +1,6 @@
 {
   "name": "yuntan-gateway",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Node and brower client for yuntan service gateway.",
   "main": "lib/index.js",
   "browser": "lib/index-browserify.js",
@@ -25,11 +25,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.1.2",
+    "babel-eslint": "^8.2.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
-    "eslint": "^4.14.0",
+    "eslint": "^4.16.0",
     "eslint-config-google": "^0.9.1",
     "jsdoc": "^3.5.5"
   },
@@ -37,6 +37,7 @@
     "babel-runtime": "^6.26.0",
     "isomorphic-fetch": "^2.2.1",
     "js-sha256": "^0.9.0",
+    "lodash.compact": "^3.0.1",
     "lodash.keys": "^4.2.0",
     "lodash.sortby": "^4.7.0"
   }
