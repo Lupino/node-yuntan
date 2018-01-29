@@ -1,7 +1,17 @@
 import qs from 'querystring';
 import fetch from 'isomorphic-fetch';
 import keys from 'lodash.keys';
-import compact from 'lodash.compact';
+
+function compact(data) {
+  const ret = {};
+  for (let key of keys(data)) {
+    if (data[key]) {
+      ret[key] = data[key];
+    }
+  }
+  return ret;
+}
+
 
 /**
  * cache the dynamic secret.
