@@ -6,6 +6,7 @@ import ArticleService from './ArticleService';
 import CartService from './CartService';
 import SearchService from './SearchService';
 import ShareService from './ShareService';
+import CommentService from './CommentService';
 
 export {
   CoinService,
@@ -16,4 +17,5 @@ export {
   CartService,
   SearchService,
   ShareService,
+  CommentService,
 };
