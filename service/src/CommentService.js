@@ -45,7 +45,7 @@ export default class CommentService extends Gateway {
    */
   getList(for_, {from = 0, size = 10} = {}) {
     const pathname = `/api/comments/${for_}/`;
-    return this.requestJSON({pathname, form: {from, size}});
+    return this.requestJSON({pathname, query: {from, size}});
   }
 
   /**
