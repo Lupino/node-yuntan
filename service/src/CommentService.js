@@ -49,6 +49,18 @@ export default class CommentService extends Gateway {
   }
 
   /**
+   * Get a comment
+   * @function CommentService::get
+   * @async
+   * @param {Number} id
+   * @return {Comment}
+   */
+  get(cid) {
+    const pathname = `/api/comment/${cid}/`;
+    return this.requestJSON({pathname});
+  }
+
+  /**
    * Remove a comment
    * @function CommentService::remove
    * @async
