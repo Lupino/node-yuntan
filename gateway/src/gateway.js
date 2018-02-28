@@ -96,7 +96,7 @@ export default class Gateway {
     json = null, raw = null, type = null}) {
     let url = this.host + pathname;
     if (query) {
-      url += '?' + qs.stringify(query);
+      url += '?' + qs.stringify(compact(query));
     }
 
     let headers = {};
