@@ -160,6 +160,46 @@ export default class UserService extends Gateway {
   }
 
   /**
+   * Update user secure_extra info
+   * @function UserService::updateSecureExtra
+   * @async
+   * @param {String} uidOrName user_id or username
+   * @param {Object} extra User secure_extra info
+   * @return {String}
+   */
+  updateSecureExtra(uidOrName, extra) {
+    const pathname = `/api/users/${uidOrName}/secure_extra`;
+    extra = JSON.stringify(extra);
+    return this.requestJSON({pathname, method: 'POST', form: {extra}});
+  }
+
+  /**
+   * Remove user secure_extra info
+   * @function UserService::removeSecureExtra
+   * @async
+   * @param {String} uidOrName user_id or username
+   * @param {Object} extra User secure_extra info
+   * @return {String}
+   */
+  removeSecureExtra(uidOrName, extra) {
+    const pathname = `/api/users/${uidOrName}/secure_extra`;
+    extra = JSON.stringify(extra);
+    return this.requestJSON({pathname, method: 'DELETE', form: {extra}});
+  }
+
+  /**
+   * Clear user secure_extra info
+   * @function UserService::clearSecureExtra
+   * @async
+   * @param {String} uidOrName user_id or username
+   * @return {String}
+   */
+  clearSecureExtra(uidOrName) {
+    const pathname = `/api/users/${uidOrName}/secure_extra/clear`;
+    return this.requestJSON({pathname, method: 'POST'});
+  }
+
+  /**
    * Verify password
    * @function UserService::verifyPassword
    * @async
