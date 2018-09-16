@@ -145,7 +145,7 @@ export default class Gateway {
       headers['Content-Type'] = 'application/json';
       body = JSON.stringify(compact(json));
     } else if (raw) {
-      headers['Content-Type'] = type || 'application/x-raw-data';
+      headers['Content-Type'] = type || 'application/octet-stream';
       body = raw;
     }
     return fetch(url, {method, headers, body});
