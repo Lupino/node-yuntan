@@ -1,5 +1,5 @@
 import Gateway from 'yuntan-gateway';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 
 /**
@@ -39,7 +39,7 @@ export default class CartService extends Gateway {
 
   /* eslint-disable camelcase */
   createOrder({username, amount, body={},
-    order_sn=`D${moment().format('YYYYMMDDHHmmss')}`,
+    order_sn=`D${dayjs().format('YYYYMMDDHHmmss')}`,
     status='created'}) {
     const pathname = '/api/orders/';
     body = JSON.stringify(body);
