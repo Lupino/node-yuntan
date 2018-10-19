@@ -396,6 +396,7 @@ export default class UserService extends Gateway {
    *     id: Int
    *     name: String
    *     extra: Extra
+   *     pick_extra(keys: [String]): Extra
    *     binds(from: Int, size: Int): [Bind]
    *     bind_count: Int
    *     groups: [String]
@@ -409,6 +410,7 @@ export default class UserService extends Gateway {
    *     name: String
    *     service: String
    *     extra: Extra
+   *     pick_extra(keys: [String]): Extra
    *     created_at: Int
    *   }
    *   type Extra {
