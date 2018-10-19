@@ -164,22 +164,4 @@ export default class ArticleService extends Gateway {
     return this.requestJSON({pathname, method: 'POST', form: {query}});
   }
 
-  configSet(key, json) {
-    const pathname = `/api/config/${key}/`;
-    return this.requestJSON({pathname, method: 'POST', json});
-  }
-
-  configGet(key) {
-    const pathname = `/api/config/${key}/`;
-    return this.requestJSON({pathname});
-  }
-
-  configArticleExtra(extra) {
-    return this.configSet('article-extra', extra);
-  }
-
-  getArticleExtra() {
-    return this.configGet('article-extra');
-  }
-
 }

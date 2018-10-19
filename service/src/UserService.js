@@ -463,30 +463,4 @@ export default class UserService extends Gateway {
     return this.requestJSON({pathname, method: 'POST', form: {query}});
   }
 
-  configSet(key, json) {
-    const pathname = `/api/config/${key}/`;
-    return this.requestJSON({pathname, method: 'POST', json});
-  }
-
-  configGet(key) {
-    const pathname = `/api/config/${key}/`;
-    return this.requestJSON({pathname});
-  }
-
-  configUserExtra(extra) {
-    return this.configSet('user-extra', extra);
-  }
-
-  getUserExtra() {
-    return this.configGet('user-extra');
-  }
-
-  configBindExtra(extra) {
-    return this.configSet('bind-extra', extra);
-  }
-
-  getBindExtra() {
-    return this.configGet('bind-extra');
-  }
-
 }
