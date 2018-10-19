@@ -169,4 +169,9 @@ export default class ArticleService extends Gateway {
     return this.requestJSON({pathname, method: 'POST', form: {query}});
   }
 
+  graphqlByArticle(id, query) {
+    const pathname = `/api/articles/${id}/graphql/`;
+    return this.requestJSON({pathname, method: 'POST', form: {query}});
+  }
+
 }
