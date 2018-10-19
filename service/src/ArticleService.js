@@ -53,6 +53,11 @@ export default class ArticleService extends Gateway {
     return this.requestJSON({pathname, method: 'DELETE'});
   }
 
+  getExtra(artId, extra_keys = []) {
+    const pathname = `/api/articles/${artId}/extra`;
+    return this.requestJSON({pathname, query: {extra_keys: extra_keys.join(',')}});
+  }
+
   updateExtra(artId, extra) {
     if (typeof extra !== 'string') {
       extra = JSON.stringify(extra);
@@ -79,9 +84,9 @@ export default class ArticleService extends Gateway {
     return this.requestJSON({pathname, method: 'DELETE'});
   }
 
-  get(artId) {
+  get(artId, extra_keys = []) {
     const pathname = `/api/articles/${artId}/`;
-    return this.requestJSON({pathname});
+    return this.requestJSON({pathname, query: {extra_keys: extra_keys.join(',')}});
   }
 
   /* eslint-disable camelcase */
@@ -91,9 +96,9 @@ export default class ArticleService extends Gateway {
   }
   /* eslint-enable camelcase */
 
-  getList({from = 0, size = 10} = {}) {
+  getList({from = 0, size = 10, extra_keys = []} = {}) {
     const pathname = '/api/articles/';
-    return this.requestJSON({pathname, query: {from, size}});
+    return this.requestJSON({pathname, query: {from, size, extra_keys: extra_keys.join(',')}});
   }
 
   createTag(tag) {
@@ -128,8 +133,8 @@ export default class ArticleService extends Gateway {
 
   /* eslint-disable camelcase */
   createTimeline(timeline, art_id) {
-    const pathname = `/api/timeline/${timeline}/`;
-    return this.requestJSON({pathname, method: 'POST', form: {art_id}});
+    const pathname = `/api/timeline/${timeline}/${art_id}/`;
+    return this.requestJSON({pathname, method: 'POST'});
   }
   /* eslint-enable camelcase */
 
@@ -138,9 +143,9 @@ export default class ArticleService extends Gateway {
     return this.requestJSON({pathname, method: 'DELETE'});
   }
 
-  getTimelineList(timeline, {from = 0, size = 10} = {}) {
+  getTimelineList(timeline, {from = 0, size = 10, extra_keys = []} = {}) {
     const pathname = `/api/timeline/${timeline}/`;
-    return this.requestJSON({pathname, query: {from, size}});
+    return this.requestJSON({pathname, query: {from, size, extra_keys: extra_keys.join('')}});
   }
 
   saveTimelineMeta(timeline, {title = '', summary = ''}) {
