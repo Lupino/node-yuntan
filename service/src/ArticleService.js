@@ -84,9 +84,27 @@ export default class ArticleService extends Gateway {
     return this.requestJSON({pathname, method: 'DELETE'});
   }
 
-  get(artId, extra_keys = []) {
+  /**
+   * Get article by id
+   * @private
+   * @async
+   * @function ArticleService::get
+   * @param {String} artId article id
+   * @param {Object} options options
+   * @param {[]String} [options.extra_keys=[]] pickup extra by extra_keys
+   * @param {[]String} [options.content_keys=[]] pickup content by content_keys
+   * @param {String} [options.content_json] decode content with json
+   * @param {String} [options.jl] Functional sed for JSON see https://github.com/chrisdone/jl
+   * @return {json}
+   */
+  get(artId, {extra_keys = [], content_keys = [], content_json, jl} = {}) {
     const pathname = `/api/articles/${artId}/`;
-    return this.requestJSON({pathname, query: {extra_keys: extra_keys.join(',')}});
+    return this.requestJSON({pathname, query: {
+      extra_keys: extra_keys.join(','),
+      content_keys: content_keys.join(','),
+      content_json,
+      jl
+    }});
   }
 
   /* eslint-disable camelcase */
@@ -96,9 +114,30 @@ export default class ArticleService extends Gateway {
   }
   /* eslint-enable camelcase */
 
-  getList({from = 0, size = 10, extra_keys = []} = {}) {
+  /**
+   * Get article list
+   * @private
+   * @async
+   * @function ArticleService::getList
+   * @param {Object} options options
+   * @param {Number} [options.from=0]
+   * @param {Number} [options.size=10]
+   * @param {[]String} [options.extra_keys=[]] pickup extra by extra_keys
+   * @param {[]String} [options.content_keys=[]] pickup content by content_keys
+   * @param {String} [options.content_json] decode content with json
+   * @param {String} [options.jl] Functional sed for JSON see https://github.com/chrisdone/jl
+   * @return {json}
+   */
+  getList({from = 0, size = 10, extra_keys = [], content_keys = [], content_json, jl} = {}) {
     const pathname = '/api/articles/';
-    return this.requestJSON({pathname, query: {from, size, extra_keys: extra_keys.join(',')}});
+    return this.requestJSON({pathname, query: {
+      from,
+      size,
+      extra_keys: extra_keys.join(','),
+      content_keys: content_keys.join(','),
+      content_json,
+      jl
+    }});
   }
 
   createTag(tag) {
@@ -143,9 +182,31 @@ export default class ArticleService extends Gateway {
     return this.requestJSON({pathname, method: 'DELETE'});
   }
 
-  getTimelineList(timeline, {from = 0, size = 10, extra_keys = []} = {}) {
+  /**
+   * Get timeline list
+   * @private
+   * @async
+   * @function ArticleService::getTimelineList
+   * @param {String} timeline timeline name
+   * @param {Object} options options
+   * @param {Number} [options.from=0]
+   * @param {Number} [options.size=10]
+   * @param {[]String} [options.extra_keys=[]] pickup extra by extra_keys
+   * @param {[]String} [options.content_keys=[]] pickup content by content_keys
+   * @param {String} [options.content_json] decode content with json
+   * @param {String} [options.jl] Functional sed for JSON see https://github.com/chrisdone/jl
+   * @return {json}
+   */
+  getTimelineList(timeline, {from = 0, size = 10, extra_keys = [], content_keys = [], content_json, jl} = {}) {
     const pathname = `/api/timeline/${timeline}/`;
-    return this.requestJSON({pathname, query: {from, size, extra_keys: extra_keys.join('')}});
+    return this.requestJSON({pathname, query: {
+      from,
+      size,
+      extra_keys: extra_keys.join(','),
+      content_keys: content_keys.join(','),
+      content_json,
+      jl
+    }});
   }
 
   saveTimelineMeta(timeline, {title = '', summary = ''}) {
