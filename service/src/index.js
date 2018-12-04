@@ -7,6 +7,7 @@ import CartService from './CartService';
 import SearchService from './SearchService';
 import ShareService from './ShareService';
 import CommentService from './CommentService';
+import DeviceService from './DeviceService';
 
 export {
   CoinService,
@@ -18,4 +19,5 @@ export {
   SearchService,
   ShareService,
   CommentService,
+  DeviceService,
 };
