@@ -68,12 +68,13 @@ export default class Gateway {
 
     const secret = cache[key];
     const expiredAt = Math.floor(new Date() / 1000) - 250;
-    if (secret && secret.timestamp > expiredAt) {
+    if (secret && secret.clientTimestamp > expiredAt) {
       return secret;
     }
 
     const newSecret = await this.signSecret(method, path);
     newSecret.timestamp = Number(newSecret.timestamp);
+    newSecret.clientTimestamp = Math.floor(new Date() / 1000);
     cache[key] = newSecret;
     return newSecret;
   }
