@@ -1,5 +1,5 @@
 import qs from 'querystring';
-import fetch from 'isomorphic-fetch';
+import rawFetch from 'isomorphic-fetch';
 import keys from 'lodash.keys';
 
 function compact(data) {
@@ -42,7 +42,7 @@ const cache = {};
  */
 export default class Gateway {
   /* eslint-disable require-jsdoc */
-  constructor({host, key, secret = '', secure = false, signSecret = false} = {},
+  constructor({host, key, secret = '', secure = false, signSecret = false, fetch = rawFetch} = {},
     {signJSON, signParam} = {}) {
     this.host = host || 'https://gw.huabot.com';
     this.key = key;
@@ -51,6 +51,7 @@ export default class Gateway {
     this.signSecret = signSecret;
     this.signJSON = signJSON;
     this.signParam = signParam;
+    this.rawFetch = fetch;
   }
   /* eslint-enable require-jsdoc */
 
@@ -137,19 +138,22 @@ export default class Gateway {
 
     headers['X-REQUEST-KEY'] = this.key;
 
-    let body = null;
-    if (form) {
+    if (method !== 'GET') {
       headers['content-type'] = 'application/x-www-form-urlencoded;' +
         'charset=UTF-8';
+    }
+
+    let body = null;
+    if (form) {
       body = qs.stringify(compact(form));
     } else if (json) {
-      headers['Content-Type'] = 'application/json';
+      headers['content-type'] = 'application/json';
       body = JSON.stringify(compact(json));
     } else if (raw) {
-      headers['Content-Type'] = type || 'application/octet-stream';
+      headers['content-type'] = type || 'application/octet-stream';
       body = raw;
     }
-    return fetch(url, {method, headers, body});
+    return this.rawFetch(url, {method, headers, body});
   }
 
   /**
