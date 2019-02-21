@@ -133,7 +133,7 @@ export default class Gateway {
       } else {
         headers['X-REQUEST-SIGNATURE'] = this.signParam(secret, signData);
       }
-      headers['X-REQUEST-TIME'] = signData.timestamp;
+      headers['X-REQUEST-TIME'] = signData.timestamp + '';
     }
 
     headers['X-REQUEST-KEY'] = this.key;
