@@ -96,12 +96,12 @@ export default class DeviceService extends Gateway {
     return this.requestJSON({pathname});
   }
 
-  rpc(uuidOrToken, payload, timeout=3000) {
+  rpc(uuidOrToken, payload, opts = {format: 'json'}) {
     const pathname = `/api/devices/${uuidOrToken}/rpc/`;
     payload = JSON.stringify(payload);
     return this.requestJSON({pathname, method: 'POST', form: {
       payload,
-      timeout
+      ...opts
     }})
   }
 
