@@ -25,13 +25,17 @@ export default class ArticleService extends Gateway {
     return this.requestJSON({pathname});
   }
 
+  removeFile(fileKey) {
+    const pathname = `/api/file/${fileKey}`;
+    return this.requestJSON({pathname, method: 'DELETE'});
+  }
+
   /* eslint-disable camelcase */
-  create({title, summary = '', content = '', from_url = uuid(),
+  create({title, summary = '', content = '',
     created_at = Math.floor( new Date() / 1000 )}) {
     const pathname = '/api/articles/';
     return this.requestJSON({pathname, method: 'POST',
-      form: {title, summary, content, from_url,
-        created_at}});
+      form: {title, summary, content, created_at}});
   }
   /* eslint-enable camelcase */
 
@@ -94,25 +98,22 @@ export default class ArticleService extends Gateway {
    * @param {[]String} [options.extra_keys=[]] pickup extra by extra_keys
    * @param {[]String} [options.content_keys=[]] pickup content by content_keys
    * @param {String} [options.content_json] decode content with json
+   * @param {String} [options.tag] filter by tag
+   * @param {String} [options.tag_id] filter by tag
    * @param {String} [options.jl] Functional sed for JSON see https://github.com/chrisdone/jl
    * @return {json}
    */
-  get(artId, {extra_keys = [], content_keys = [], content_json, jl} = {}) {
+  get(artId, {extra_keys = [], content_keys = [], content_json, jl, tag, tag_id} = {}) {
     const pathname = `/api/articles/${artId}/`;
     return this.requestJSON({pathname, query: {
       extra_keys: extra_keys.join(','),
       content_keys: content_keys.join(','),
+      tag,
+      tag_id,
       content_json,
       jl
     }});
   }
-
-  /* eslint-disable camelcase */
-  exists(from_url) {
-    const pathname = '/api/check/';
-    return this.requestJSON({pathname, query: {from_url}});
-  }
-  /* eslint-enable camelcase */
 
   /**
    * Get article list
@@ -225,14 +226,41 @@ export default class ArticleService extends Gateway {
     return this.requestJSON({pathname, method: 'DELETE'});
   }
 
-  graphql(query) {
+  graphql(query, file_extra={}, article_extra = {}) {
     const pathname = '/api/graphql/';
-    return this.requestJSON({pathname, method: 'POST', form: {query}});
+    if (typeof file_extra !== 'string') {
+      file_extra = JSON.stringify(file_extra);
+    }
+    if (typeof article_extra !== 'string') {
+      article_extra = JSON.stringify(article_extra);
+    }
+    return this.requestJSON({pathname, method: 'POST', form: {query, file_extra, article_extra}});
   }
 
-  graphqlByArticle(id, query) {
+  graphqlByArticle(id, query, file_extra={}, article_extra = {}) {
     const pathname = `/api/articles/${id}/graphql/`;
-    return this.requestJSON({pathname, method: 'POST', form: {query}});
+    if (typeof file_extra !== 'string') {
+      file_extra = JSON.stringify(file_extra);
+    }
+    if (typeof article_extra !== 'string') {
+      article_extra = JSON.stringify(article_extra);
+    }
+    return this.requestJSON({pathname, method: 'POST', form: {query, file_extra, article_extra}});
+  }
+
+  checkAlias(alias) {
+    const pathname = `/api/alias/${alias}`;
+    return this.requestJSON({pathname});
+  }
+
+  removeAlias(alias) {
+    const pathname = `/api/alias/${alias}`;
+    return this.requestJSON({pathname, method: 'DELETE'});
+  }
+
+  saveAlias(artId, alias) {
+    const pathname = `/api/articles/${artId}/alias`;
+    return this.requestJSON({pathname, method: 'POST', form: {alias}});
   }
 
 }
