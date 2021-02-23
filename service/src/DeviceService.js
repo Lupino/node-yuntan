@@ -54,14 +54,18 @@ export default class DeviceService extends Gateway {
 
   updateMeta(uuidOrToken, meta) {
     const pathname = `/api/devices/${uuidOrToken}/meta/`;
-    meta = JSON.stringify(meta);
+    if (typeof meta !== 'string') {
+      meta = JSON.stringify(meta);
+    }
     return this.requestJSON({pathname, method: 'POST',
       form: {meta}});
   }
 
   updateMetaByUser(username, uuidOrToken, meta) {
     const pathname = `/api/users/${username}/devices/${uuidOrToken}/meta/`;
-    meta = JSON.stringify(meta);
+    if (typeof meta !== 'string') {
+      meta = JSON.stringify(meta);
+    }
     return this.requestJSON({pathname, method: 'POST',
       form: {meta}});
   }
@@ -96,13 +100,15 @@ export default class DeviceService extends Gateway {
     return this.requestJSON({pathname});
   }
 
-  rpc(uuidOrToken, payload, opts = {format: 'json'}) {
+  rpc(uuidOrToken, payload, opts = {format: 'json'}, reqOpts) {
     const pathname = `/api/devices/${uuidOrToken}/rpc/`;
-    payload = JSON.stringify(payload);
+    if (typeof payload !== 'string') {
+      payload = JSON.stringify(payload);
+    }
     return this.requestJSON({pathname, method: 'POST', form: {
       payload,
       ...opts
-    }})
+    }, reqOpts})
   }
 
 }
