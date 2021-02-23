@@ -174,8 +174,15 @@ export default class Gateway {
     const rsp = await this.request(options);
     if (/application\/json/.test(rsp.headers.get('content-type'))) {
       const data = await rsp.json();
+      if (options.capture) {
+        return data;
+      }
       if (data.err || data.error || data.errors) {
         throw new Error(data.err || data.error || data.errors);
+      }
+
+      if (options.auto_pop === false) {
+        return data;
       }
 
       if (Array.isArray(data)) {
