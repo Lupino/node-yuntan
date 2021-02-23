@@ -100,7 +100,7 @@ export default class DeviceService extends Gateway {
     return this.requestJSON({pathname});
   }
 
-  rpc(uuidOrToken, payload, opts = {format: 'json'}, reqOpts) {
+  rpc(uuidOrToken, payload, opts = {format: 'json'}) {
     const pathname = `/api/devices/${uuidOrToken}/rpc/`;
     if (typeof payload !== 'string') {
       payload = JSON.stringify(payload);
@@ -108,7 +108,7 @@ export default class DeviceService extends Gateway {
     return this.requestJSON({pathname, method: 'POST', form: {
       payload,
       ...opts
-    }, reqOpts})
+    }, capture: true})
   }
 
 }
