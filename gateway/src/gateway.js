@@ -1,4 +1,3 @@
-import qs from 'querystring';
 import rawFetch from 'isomorphic-fetch';
 import keys from 'lodash.keys';
 
@@ -98,7 +97,7 @@ export default class Gateway {
     json = null, raw = null, type = null}) {
     let url = this.host + pathname;
     if (query) {
-      url += '?' + qs.stringify(compact(query));
+      url += '?' + new URLSearchParams(compact(query));
     }
 
     let headers = {};
@@ -145,7 +144,7 @@ export default class Gateway {
 
     let body = null;
     if (form) {
-      body = qs.stringify(compact(form));
+      body = new URLSearchParams(compact(form)).toString();
     } else if (json) {
       headers['content-type'] = 'application/json';
       body = JSON.stringify(compact(json));
