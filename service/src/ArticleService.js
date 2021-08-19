@@ -1,5 +1,4 @@
 import Gateway from 'yuntan-gateway';
-import uuid from 'uuid/v4';
 
 
 /**
