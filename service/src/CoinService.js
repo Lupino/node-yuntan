@@ -116,7 +116,7 @@ export default class CoinService extends Gateway {
 
   /**
    * Get coin history list
-   * @function CoinService::getHistory
+   * @function CoinService::getHistories
    * @async
    * @param {Object} [query] query string
    * @param {Number} [query.from=0]
@@ -128,14 +128,14 @@ export default class CoinService extends Gateway {
    * @return {Number} total
    * @return {Coin[]} coins
    */
-  getHistory(query = {}) {
-    const pathname = '/api/coins_history/';
+  getHistories(query = {}) {
+    const pathname = '/api/histories/';
     return this.requestJSON({pathname, query});
   }
 
   /**
    * Get coin history list by namespace
-   * @function CoinService::getHistoryByNameSpace
+   * @function CoinService::getHistoriesByNameSpace
    * @async
    * @param {String} namespace spec namespace
    * @param {Object} [query] query string
@@ -148,8 +148,8 @@ export default class CoinService extends Gateway {
    * @return {Number} total
    * @return {Coin[]} coins
    */
-  getHistoryByNameSpace(namespace, query = {}) {
-    const pathname = `/api/coins_history/${namespace}/`;
+  getHistoriesByNameSpace(namespace, query = {}) {
+    const pathname = `/api/histories/${namespace}/`;
     return this.requestJSON({pathname, query});
   }
 
